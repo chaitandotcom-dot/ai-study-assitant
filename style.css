@@ -1,30 +1,34 @@
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Kalam:wght@400;700&display=swap');
+
 
 :root {
-    --bg: #111210;
-    --surface: #191a17;
-    --surface-light: #20211d;
-    --text: #eae9e3;
-    --muted: #92938a;
-    --border: #30312b;
-    --accent: #c6d4a5;
-    --accent-text: #171912;
-    --danger: #e58d8d;
+    --bg: #E4DDD3;
+    --surface: #F0EBE3;
+    --surface-light: #DCD3C7;
+    --text: #171717;
+    --muted: #68635D;
+    --border: #C9BFB3;
+    --accent: #00A19B;
+    --accent-text: #FFFFFF;
+    --danger: #C34F4F;
+    --shadow: 0 20px 60px rgba(40, 30, 20, 0.08);
+}
+
+body.dark-theme {
+    --bg: #151817;
+    --surface: #202624;
+    --surface-light: #29312E;
+    --text: #E4DDD3;
+    --muted: #AAAFA9;
+    --border: #3C4944;
+    --accent: #00A19B;
+    --accent-text: #FFFFFF;
+    --danger: #E58D8D;
     --shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
-body.light-theme {
-    --bg: #f5f4ef;
-    --surface: #ffffff;
-    --surface-light: #efeee8;
-    --text: #252620;
-    --muted: #77786e;
-    --border: #deded4;
-    --accent: #687d46;
-    --accent-text: #ffffff;
-    --danger: #c34f4f;
-    --shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
-}
+
 * {
     margin: 0;
     padding: 0;
@@ -664,5 +668,57 @@ input::placeholder {
     }
     .history-item {
         align-items: flex-start;
+    }
+}
+
+
+.animated-headline .headline-word {
+    display: inline-grid;
+    vertical-align: middle;
+    cursor: pointer;
+    perspective: 500px;
+    color: var(--text);
+}
+
+.animated-headline .accent-word {
+    color: var(--accent);
+}
+
+.headline-word .word-face {
+    grid-area: 1 / 1;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+    backface-visibility: hidden;
+    transform-origin: center;
+}
+
+
+.headline-word .word-hi {
+    opacity: 0;
+    transform: rotateX(-90deg);
+    color: var(--accent);
+    font-family: 'Kalam', cursive;
+    font-weight: 700;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+
+.headline-word.is-hindi .word-en {
+    opacity: 0;
+    transform: rotateX(90deg);
+}
+
+.headline-word.is-hindi .word-hi {
+    opacity: 1;
+    transform: rotateX(0deg);
+}
+
+.headline-word:hover {
+    filter: brightness(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .headline-word .word-face {
+        transition: none;
     }
 }
