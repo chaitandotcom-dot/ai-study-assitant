@@ -983,3 +983,64 @@ input::placeholder {
         flex-direction: column;
     }
 }
+
+
+.api-key-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+    width: 100%;
+}
+
+.api-key-actions button {
+    width: 100%;
+    min-width: 0;
+    height: 54px;
+    padding: 12px 10px;
+    margin: 0;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.api-key-actions #saveApiKeyBtn {
+    background: var(--accent);
+    color: white;
+}
+
+.api-key-actions #removeApiKeyBtn {
+    background: transparent;
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.api-key-actions #saveApiKeyBtn:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.api-key-actions #removeApiKeyBtn:hover {
+    background: var(--danger);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.api-key-actions button:active {
+    transform: scale(0.98);
+}
+
+#apiKeyStatus {
+    margin: 12px 0 18px;
+    min-height: 18px;
+}
+
+@media (max-width: 480px) {
+    .api-key-actions {
+        grid-template-columns: 1fr;
+    }
+}

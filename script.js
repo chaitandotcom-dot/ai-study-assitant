@@ -43,6 +43,7 @@ const closeSettingsBtn = document.getElementById('closeSettingsBtn');
 const apiKeyInput = document.getElementById('apiKeyInput');
 const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
 const apiKeyStatus = document.getElementById('apiKeyStatus');
+const removeApiKeyBtn = document.getElementById('removeApiKeyBtn');
 
 settingsToggle.addEventListener('click', () => {
     settingsOverlay.hidden = false;
@@ -56,6 +57,17 @@ settingsOverlay.addEventListener('click', (event) => {
     if (event.target === settingsOverlay) {
         settingsOverlay.hidden = true;
     }
+});
+
+removeApiKeyBtn.addEventListener('click', () => {
+    localStorage.removeItem('studymate_api_key');
+
+    apiKeyInput.value = '';
+
+    apiKeyStatus.textContent = 'API key removed successfully.';
+    apiKeyStatus.style.color = 'var(--accent)';
+
+    showToast('API key removed.');
 });
 
 apiKeyInput.value = localStorage.getItem('studymate_api_key') || '';
@@ -271,19 +283,34 @@ async function generateStudyMaterial() {
         );
 
         if (!response.ok) {
-            if (response.status === 401 || response.status === 403) {
-                throw new Error('Invalid API key or API access denied.');
-            }
+            const errorData = await response.json().catch(() => null);
+            const apiMessage = errorData?.error?.message || '';
 
-            if (response.status === 429) {
-                throw new Error('API quota exceeded. Check your Gemini usage limits.');
-            }
+         if (response.status === 400 || response.status === 401) {
+            throw new Error('Your API request or API key is invalid. Check your settings.');
+         }
 
-            if (response.status === 503) {
-                    throw new Error('Gemini is temporarily overloaded. Please wait a minute and try again.');
-}
+         if (response.status === 403) {
+             throw new Error('API access denied. Check your API key and permissions.');
+         }
 
-            throw new Error(`Gemini API error: ${response.status}`);
+         if (response.status === 404) {
+            throw new Error('The selected Gemini model was not found.');
+        }
+
+         if (response.status === 429) {
+            throw new Error('Gemini free-tier quota exceeded. Please try again later.');
+        }
+
+        if (response.status === 503) {
+            throw new Error('Gemini is temporarily overloaded. Please try again shortly.');
+        }
+
+        if (response.status >= 500) {
+            throw new Error('Google servers are experiencing problems. Try again later.');
+        }
+
+        throw new Error(apiMessage || `Request failed with status ${response.status}.`);
         }
 
         const data = await response.json();
@@ -344,8 +371,13 @@ async function generateStudyMaterial() {
         showToast('Study material generated successfully!');
 
     } catch (error) {
-        console.error('Generation error:', error);
-        showToast(error.message || 'Something went wrong. Please try again.');
+    console.error('Generation error:', error);
+
+     if (error instanceof TypeError) {
+         showToast('Network error. Check your internet connection.');
+     } else {
+         showToast(error.message || 'Something went wrong. Please try again.');
+        }
     } finally {
         generateBtn.disabled = false;
         loadingOverlay.hidden = true;
@@ -524,9 +556,6 @@ function renderFlashcard() {
         `Known: ${knownFlashcards.size} | Need practice: ${unknownFlashcards.size}`;
 }
 
-document.getElementById('flashcardContent').addEventListener('click', event => {
-    if (event.target.closest('#activeFlashcard')) return;
-});
 
 document.getElementById('previousCardBtn').addEventListener('click', () => {
     if (currentFlashcardIndex > 0) {
