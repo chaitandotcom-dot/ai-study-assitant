@@ -758,3 +758,228 @@ input::placeholder {
     color: var(--accent);
     border-bottom-color: var(--accent);
 }
+
+.generated-summary {
+    font-size: 16px;
+    line-height: 1.8;
+    white-space: normal;
+}
+
+.quiz-question {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color, #ccc);
+}
+
+.quiz-question h3 {
+    margin-bottom: 16px;
+}
+
+.quiz-option {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.flashcard {
+    min-height: 220px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.flashcard-inner {
+    position: relative;
+    min-height: 220px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    inset: 0;
+    min-height: 220px;
+    padding: 30px;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    backface-visibility: hidden;
+    background: var(--card-bg, #f5f0e8);
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+}
+
+
+.quiz-question {
+    padding: 24px;
+    margin: 20px 0;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 12px;
+}
+
+.quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    margin: 8px 0;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.quiz-option:hover {
+    background: rgba(0, 161, 155, 0.08);
+}
+
+.quiz-option.correct-answer {
+    border-color: #239b68;
+    background: rgba(35, 155, 104, 0.12);
+}
+
+.quiz-option.wrong-answer {
+    border-color: #d9534f;
+    background: rgba(217, 83, 79, 0.10);
+}
+
+.quiz-explanation {
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 8px;
+    background: rgba(0, 161, 155, 0.08);
+    line-height: 1.6;
+}
+
+.flashcard {
+    min-height: 280px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin: 24px 0;
+}
+
+.flashcard-inner {
+    position: relative;
+    min-height: 280px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    inset: 0;
+    min-height: 280px;
+    padding: 30px;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: var(--card-bg, #f5f0e8);
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front span,
+.flashcard-back span {
+    color: var(--accent-color, #00a19b);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.flashcard-front h3,
+.flashcard-back h3 {
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+#previousCardBtn:disabled,
+#nextCardBtn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 18px;
+    margin: 12px 0;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 12px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+
+.history-item:hover {
+    background: rgba(0, 161, 155, 0.07);
+}
+
+.history-item-info h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+.history-item-info p {
+    margin: 0 0 6px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.history-item-info span {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.history-open-btn {
+    padding: 10px 16px;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.history-open-btn:hover {
+    background: rgba(0, 161, 155, 0.12);
+}
+
+.history-empty {
+    padding: 18px 0;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+    .history-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
