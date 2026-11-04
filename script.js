@@ -169,6 +169,9 @@ const loadingOverlay = document.getElementById('loadingOverlay');
 let studyMaterial = null;
 
 async function generateStudyMaterial() {
+    if (studyMaterial && !confirm('Generating new material will replace your current results. Continue?')) {
+    return;
+    }
     const notes = notesInput.value.trim();
     const apiKey = localStorage.getItem('studymate_api_key');
     const style = document.getElementById('styleSelect').value;
